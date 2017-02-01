@@ -6,4 +6,4 @@ keys = [
   "/services/*",
 ]
 check_cmd = "/usr/sbin/sshd -T"
-reload_cmd = "pkill -HUP sshd"
+reload_cmd = "kill -HUP $(pgrep -f /usr/sbin/sshd)"
