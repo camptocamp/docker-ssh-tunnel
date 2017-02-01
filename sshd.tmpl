@@ -9,6 +9,9 @@ PermitOpen localhost:1
       {{- $port := getv (printf "/services/%s/labels/%s" $service $label) }}
       {{- $stack := getv (printf "/services/%s/stack_name" $service) }}
       {{- printf " %s.%s:%s" $service $stack $port }}  
+      {{- range lsdir (printf "/services/%s/containers" $service) }}
+        {{- printf " %s:%s" . $port }}
+      {{- end }}
     {{- end -}}
   {{- end -}}
 {{- end }}
