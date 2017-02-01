@@ -1,7 +1,8 @@
 FROM ubuntu:16.04
 
 ENV CONFD_VERSION="0.12.0-alpha3" \
-    CONFD_URL="https://github.com/kelseyhightower/confd/releases/download"
+    CONFD_URL="https://github.com/kelseyhightower/confd/releases/download" \
+    SSH_PORT="22"
 
 RUN apt-get update \
     && apt-get install -y openssh-server wget \

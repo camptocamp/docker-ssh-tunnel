@@ -1,13 +1,14 @@
-Port 2222
+Port {{ getenv "SSH_PORT" }}
 Protocol 2
 
 AllowTcpForwarding yes
-{{ range $service := lsdir "/services" }}
+PermitOpen localhost:1
+{{- range $service := lsdir "/services" }}
   {{- range $label := ls (printf "/services/%s/labels" $service) }}
     {{- if eq . "ssh_tunnel.port" }}
       {{- $port := getv (printf "/services/%s/labels/%s" $service $label) }}
       {{- $stack := getv (printf "/services/%s/stack_name" $service) }}
-PermitOpen {{ $service }}.{{ $stack }}:{{ $port }}
+      {{- printf " %s.%s:%s" $service $stack $port }}  
     {{- end -}}
   {{- end -}}
 {{- end }}
