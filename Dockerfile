@@ -21,7 +21,7 @@ RUN mkdir /root/.ssh \
     && chmod 0600 /root/.ssh
 
 # Don't allow login
-RUN chsh /usr/sbin/nologin
+RUN chsh -s /usr/sbin/nologin root
 
 VOLUME [ "/etc/ssh", "/root/.ssh" ]
 
