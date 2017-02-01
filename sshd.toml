@@ -1,0 +1,9 @@
+[template]
+src = "sshd.tmpl"
+dest = "/etc/ssh/sshd_config"
+keys = [
+  "/services",
+  "/services/*",
+]
+check_cmd = "/usr/sbin/sshd -T"
+reload_cmd = "pkill -HUP sshd"
