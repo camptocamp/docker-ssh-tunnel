@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-ENV CONFD_VERSION="0.11.0" \
+ENV CONFD_VERSION="0.12.0-alpha3" \
     CONFD_URL="https://github.com/kelseyhightower/confd/releases/download"
 
 RUN apt-get update \
@@ -19,7 +19,7 @@ ADD entrypoint.sh /
 RUN mkdir /root/.ssh \
     && chmod 0600 /root/.ssh
 
-VOLUME [ "/root/.ssh" ]
+VOLUME [ "/etc/ssh", "/root/.ssh" ]
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD /bin/true
