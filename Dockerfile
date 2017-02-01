@@ -20,6 +20,9 @@ ADD entrypoint.sh /
 RUN mkdir /root/.ssh \
     && chmod 0600 /root/.ssh
 
+# Don't allow login
+RUN chsh /usr/sbin/nologin
+
 VOLUME [ "/etc/ssh", "/root/.ssh" ]
 
 ENTRYPOINT ["/entrypoint.sh"]
