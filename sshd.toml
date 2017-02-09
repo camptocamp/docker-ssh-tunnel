@@ -2,8 +2,8 @@
 src = "sshd.tmpl"
 dest = "/etc/ssh/sshd_config"
 keys = [
-  "/services",
-  "/services/*",
+  "/stacks",
+  "/stacks/*",
 ]
 check_cmd = "/usr/sbin/sshd -T"
 reload_cmd = "kill -HUP $(pgrep -f /usr/sbin/sshd)"

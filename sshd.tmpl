@@ -3,15 +3,16 @@ Protocol 2
 
 AllowTcpForwarding yes
 PermitOpen localhost:1
-{{- range $service := lsdir "/services" }}
-  {{- range $label := ls (printf "/services/%s/labels" $service) }}
-    {{- if eq . "ssh_tunnel.port" }}
-      {{- $port := getv (printf "/services/%s/labels/%s" $service $label) }}
-      {{- $stack := getv (printf "/services/%s/stack_name" $service) }}
-      {{- printf " %s.%s:%s" $service $stack $port }}  
-      {{- range lsdir (printf "/services/%s/containers" $service) }}
-        {{- printf " %s:%s" . $port }}
-      {{- end }}
+{{- range $stack := lsdir "/stacks" }}
+  {{- range $service := lsdir (printf "/stacks/%s/services" $stack) }}
+    {{- range $label := ls (printf "/stacks/%s/services/%s/labels" $stack $service) }}
+      {{- if eq . "ssh_tunnel.port" }}
+        {{- $port := getv (printf "/stacks/%s/services/%s/labels/%s" $stack $service $label) }}
+        {{- printf " %s.%s:%s" $service $stack $port }}  
+        {{- range lsdir (printf "/stacks/%s/services/%s/containers" $stack $service) }}
+          {{- printf " %s:%s" . $port }}
+        {{- end }}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end }}
