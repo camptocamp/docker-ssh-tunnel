@@ -1,7 +1,10 @@
 Port {{ getenv "SSH_PORT" }}
 Protocol 2
 
-AuthorizedKeysCommand /go/bin/github_pki
+{{ $org := getenv "GITHUB_ORG" }}
+{{ $team := getenv "GITHUB_TEAM" }}
+{{ $users := getenv "GITHUB_USERS" }}
+AuthorizedKeysCommand /go/bin/github_pki -t {{ getenv "GITHUB_TOKEN" }}{{ if $org }} -o {{ $org }}{{if $team }} -T {{ $team }}{{ end }}{{ end }}{{ if $users }} -u {{ $users }}{{ end }} -u {{ getenv "GITHUB_USERS" }} -a -
 AuthorizedKeysCommandUser root
 
 AllowTcpForwarding yes
