@@ -2,8 +2,9 @@
 set -e
 
 if test -n "$AUTHORIZED_KEYS"; then
-  echo "$AUTHORIZED_KEYS" > /root/.ssh/authorized_keys
+  echo "$AUTHORIZED_KEYS" > /home/tunnel/.ssh/authorized_keys
 fi
+chown -R tunnel. /home/tunnel
 
 nohup /usr/sbin/sshd -E /ssh.log &
 

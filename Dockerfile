@@ -25,13 +25,13 @@ ADD sshd.toml /etc/confd/conf.d/
 ADD sshd.tmpl /etc/confd/templates/
 ADD entrypoint.sh /
 
-RUN mkdir /root/.ssh \
-    && chmod 0600 /root/.ssh
-
 # Don't allow login
-RUN chsh -s /usr/sbin/nologin root
+RUN useradd -s /usr/sbin/nologin -m tunnel \
+    && usermod -p '*' tunnel \
+    && mkdir /home/tunnel/.ssh \
+    && chmod 0700 /home/tunnel/.ssh
 
-VOLUME [ "/etc/ssh", "/root/.ssh" ]
+VOLUME [ "/etc/ssh" ]
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD /bin/true
