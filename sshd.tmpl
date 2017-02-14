@@ -3,11 +3,14 @@ Protocol 2
 PasswordAuthentication no
 AllowUsers {{ getenv "TUNNEL_USER" }}
 
-{{ $org := getenv "GITHUB_ORG" }}
-{{ $team := getenv "GITHUB_TEAM" }}
-{{ $users := getenv "GITHUB_USERS" }}
-AuthorizedKeysCommand /go/bin/github_pki -t {{ getenv "GITHUB_TOKEN" }}{{ if $org }} -o {{ $org }}{{if $team }} -T {{ $team }}{{ end }}{{ end }}{{ if $users }} -u {{ $users }}{{ end }} -a -
+{{ $token := getenv "GITHUB_TOKEN" -}}
+{{ $org := getenv "GITHUB_ORG" -}}
+{{ $team := getenv "GITHUB_TEAM" -}}
+{{ $users := getenv "GITHUB_USERS" -}}
+{{ if $token -}}
+AuthorizedKeysCommand /go/bin/github_pki -t {{ $token }}{{ if $org }} -o {{ $org }}{{if $team }} -T {{ $team }}{{ end }}{{ end }}{{ if $users }} -u {{ $users }}{{ end }} -a -
 AuthorizedKeysCommandUser {{ getenv "TUNNEL_USER" }}
+{{- end }}
 
 AllowTcpForwarding yes
 PermitOpen localhost:1
