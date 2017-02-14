@@ -3,7 +3,8 @@ FROM ubuntu:16.04
 ENV CONFD_VERSION="0.12.0-alpha3" \
     CONFD_URL="https://github.com/kelseyhightower/confd/releases/download" \
     SSH_PORT="22" \
-    GOPATH="/go"
+    GOPATH="/go" \
+    TUNNEL_USER="tunnel"
 
 RUN apt-get update \
     && apt-get install -y openssh-server wget \
@@ -26,10 +27,10 @@ ADD sshd.tmpl /etc/confd/templates/
 ADD entrypoint.sh /
 
 # Don't allow login
-RUN useradd -s /usr/sbin/nologin -m tunnel \
-    && usermod -p '*' tunnel \
-    && mkdir /home/tunnel/.ssh \
-    && chmod 0700 /home/tunnel/.ssh
+RUN useradd -s /usr/sbin/nologin -m ${TUNNEL_USER} \
+    && usermod -p '*' ${TUNNEL_USER} \
+    && mkdir /home/${TUNNEL_USER}/.ssh \
+    && chmod 0700 /home/${TUNNEL_USER}/.ssh
 
 VOLUME [ "/etc/ssh" ]
 

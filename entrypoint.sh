@@ -4,7 +4,7 @@ set -e
 if test -n "$AUTHORIZED_KEYS"; then
   echo "$AUTHORIZED_KEYS" > /home/tunnel/.ssh/authorized_keys
 fi
-chown -R tunnel. /home/tunnel
+chown -R "$TUNNEL_USER". "/home/$TUNNEL_USER"
 
 nohup /usr/sbin/sshd -E /ssh.log &
 

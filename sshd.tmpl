@@ -1,13 +1,13 @@
 Port {{ getenv "SSH_PORT" }}
 Protocol 2
 PasswordAuthentication no
-AllowUsers tunnel
+AllowUsers {{ getenv "TUNNEL_USER" }}
 
 {{ $org := getenv "GITHUB_ORG" }}
 {{ $team := getenv "GITHUB_TEAM" }}
 {{ $users := getenv "GITHUB_USERS" }}
 AuthorizedKeysCommand /go/bin/github_pki -t {{ getenv "GITHUB_TOKEN" }}{{ if $org }} -o {{ $org }}{{if $team }} -T {{ $team }}{{ end }}{{ end }}{{ if $users }} -u {{ $users }}{{ end }} -a -
-AuthorizedKeysCommandUser tunnel
+AuthorizedKeysCommandUser {{ getenv "TUNNEL_USER" }}
 
 AllowTcpForwarding yes
 PermitOpen localhost:1
