@@ -2,13 +2,21 @@ FROM ubuntu:16.04
 
 ENV CONFD_VERSION="0.12.0-alpha3" \
     CONFD_URL="https://github.com/kelseyhightower/confd/releases/download" \
-    SSH_PORT="22"
+    SSH_PORT="22" \
+    GOPATH="/go"
 
 RUN apt-get update \
     && apt-get install -y openssh-server wget \
     && wget --retry-connrefused -t 5 ${CONFD_URL}/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd \
     && chmod +x /bin/confd \
     && apt-get purge -y --auto-remove wget \
+    && apt-get clean
+
+RUN apt-get update \
+    && apt-get -y install golang git \
+    && apt-get install -y ca-certificates \
+    && go get github.com/camptocamp/github_pki \
+    && apt-get purge -y --auto-remove golang git \
     && apt-get clean
 
 RUN mkdir /var/run/sshd

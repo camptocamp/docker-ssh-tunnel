@@ -1,6 +1,9 @@
 Port {{ getenv "SSH_PORT" }}
 Protocol 2
 
+AuthorizedKeysCommand /go/bin/github_pki
+AuthorizedKeysCommandUser root
+
 AllowTcpForwarding yes
 PermitOpen localhost:1
 {{- range $stack := lsdir "/stacks" }}
