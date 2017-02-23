@@ -37,7 +37,6 @@ RUN useradd -s /usr/sbin/nologin -m ${TUNNEL_USER} \
     && mkdir /home/${TUNNEL_USER}/.ssh \
     && chmod 0700 /home/${TUNNEL_USER}/.ssh
 
-ADD wrapper.sh /
 
 VOLUME [ "/etc/ssh" ]
 
