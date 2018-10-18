@@ -13,7 +13,7 @@ ENV CONFD_VERSION="0.16.0" \
 COPY --from=builder /github_pki /usr/local/bin/github_pki
 
 RUN apt-get update \
-    && apt-get install -y openssh-server wget \
+    && apt-get install -y openssh-server ca-certificates wget \
     && wget --retry-connrefused -t 5 ${CONFD_URL}/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /usr/local/bin/confd \
     && echo "${CONFD_SHA256} /usr/local/bin/confd" | sha256sum -c - \
     && chmod +x /usr/local/bin/confd \
