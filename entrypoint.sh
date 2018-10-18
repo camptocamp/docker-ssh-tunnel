@@ -6,7 +6,7 @@ if test -n "$AUTHORIZED_KEYS"; then
 fi
 chown -R "$TUNNEL_USER". "/home/$TUNNEL_USER"
 
-nohup /usr/sbin/sshd -E /ssh.log &
+nohup /usr/sbin/sshd -D -e &
 
 # Run confd to build configuration files
 /usr/local/bin/confd --backend rancher --prefix /latest --interval 600
