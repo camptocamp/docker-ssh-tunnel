@@ -9,4 +9,4 @@ chown -R "$TUNNEL_USER". "/home/$TUNNEL_USER"
 nohup /usr/sbin/sshd -E /ssh.log &
 
 # Run confd to build configuration files
-/bin/confd --backend rancher --prefix /latest --interval 600
+/usr/local/bin/confd --backend rancher --prefix /latest --interval 600

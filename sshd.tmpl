@@ -8,7 +8,7 @@ AllowUsers {{ getenv "TUNNEL_USER" }}
 {{ $team := getenv "GITHUB_TEAM" -}}
 {{ $users := getenv "GITHUB_USERS" -}}
 {{ if $token -}}
-AuthorizedKeysCommand /go/bin/github_pki -t {{ $token }}{{ if $org }} -o {{ $org }}{{if $team }} -T {{ $team }}{{ end }}{{ end }}{{ if $users }} -u {{ $users }}{{ end }} -a -
+AuthorizedKeysCommand /usr/local/bin/github_pki -t {{ $token }}{{ if $org }} -o {{ $org }}{{if $team }} -T {{ $team }}{{ end }}{{ end }}{{ if $users }} -u {{ $users }}{{ end }} -a -
 AuthorizedKeysCommandUser {{ getenv "TUNNEL_USER" }}
 {{- end }}
 
