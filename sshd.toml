@@ -6,4 +6,4 @@ keys = [
   "/stacks/*",
 ]
 check_cmd = "/usr/sbin/sshd -T"
-reload_cmd = "pkill -e -HUP -f /usr/sbin/sshd"
+reload_cmd = "pkill -e -HUP -f ^/usr/sbin/sshd"
